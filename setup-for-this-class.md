@@ -15,7 +15,7 @@ I recommend using only LOWERCASE letters in your username, because it makes thin
 
 ### Slack.com
 You will need a (free of cost) account on slack.com to join in the discussion there.  That account is specific to the class workspace (there is not a "general" account as on github)
-- https://rebrand.ly/seainfo6250-slack
+- https://rebrand.ly/svinfo6250-slack
 
 I recommend the desktop client and/or the mobile client over the web-based one.  Slack is where most info on the class is discussed, just like many programming shops.
 
@@ -57,7 +57,7 @@ Many MANY examples in class will be done at the command line, as will documentat
 ### Cloning the class repository
 
 If you follow the below link, you will create a personal copy of the class repository on your Github account.
-- https://rebrand.ly/seainfo6250-github
+- https://rebrand.ly/svinfo6250-github
 
 You only have to do so once. After you've created this copy on github, you will want to "clone" this repository to your personal computer. 
 
