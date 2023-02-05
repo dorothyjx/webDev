@@ -1,3 +1,6 @@
+const { send } = require("process");
+const { compileFunction } = require("vm");
+
 const users = { // Yes, an object!  Keep it as one
   "Amit": "Amit", // The keys let you check to see if the user is logged in
   "Bao": "Bao",  // the values don't really matter, here we reuse the username, but it could be `true`
@@ -11,12 +14,17 @@ const messages = [
   {
     sender: "Bao",
     text: "Yeah, still working on this INFO6250 work, but I keep getting distracted by cat videos",
-  }
+  },
 ];
 
 // Below uses destrucuring
 function addMessage({ sender, text }) { // Leave this as `sender` - I want to see you solve the name disagreement
   // Fill in!
+  const newMessage = {
+    sender: sender,
+    text: text
+  };
+  messages.push(newMessage);
 }
 
 const chat = {
@@ -26,4 +34,3 @@ const chat = {
 };
 
 module.exports = chat;
-
