@@ -1,0 +1,13 @@
+.lists {
+	width: 50%;
+	padding: 15px;
+	border: 1px solid black;
+	list-style-type: "\1F431";
+	background: #3399ff;
+}
+
+.item{
+	background: #cce5ff;
+	color: darkblue;
+	margin: 5px;
+}
