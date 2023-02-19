@@ -47,9 +47,7 @@ app.post('/login', (req, res) => {
 
 app.post('/logout', (req, res) => {
 	const sid = req.cookies.sid;
-	console.log(sessions);
 	delete sessions[sid];
-	console.log(sessions);
 	res.clearCookie('sid');
 	res.redirect('/');
 });
@@ -86,10 +84,8 @@ app.post('/guess', (req, res) => {
 		users[username].status = "valid";
 		const matchLetters = webPages.getMatchLetters(username, userGuess);
 		const currentScore = Object.keys(users[username].guessedList).length + 1;
-		console.log("!!! CurrentScore: " + currentScore);
 		users[username].score = currentScore;
 		users[username].guessedList[userGuess]= matchLetters;
-		console.log("---" + users[username].guessedList)
 		res.redirect('/');
 	}
 })
