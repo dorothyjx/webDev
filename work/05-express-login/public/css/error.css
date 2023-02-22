@@ -1,0 +1,18 @@
+body {
+	background-color: pink;
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	height: 100vh;
+	align-items: center;
+}
+
+h1 {
+	font-size: 2.5rem;
+	color:darkred;
+}
+
+a {
+	font-size: 1.5rem;
+	margin: 20px;
+}
