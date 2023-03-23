@@ -1,0 +1,56 @@
+body {
+	background-color: pink;
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	height: 100vh;
+	align-items: center;
+}
+
+h1 {
+	font-size: 2.5rem;
+}
+
+.info-card {
+	width: 60vw;
+	height: 80vh;
+	border:1px solid white;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	margin: 5px;
+}
+
+.info{
+	width: 40%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 2%;
+}
+
+label {
+	font-size: 1.2rem;
+	margin: 15px;
+	text-align: center;
+}
+
+span {
+	margin: 15px;
+	padding: 10px;
+	font-size: 1.5rem;
+	text-align: center;
+	border: 1px solid yellow;
+}
+
+input {
+	height: 40px;
+	margin: 15px;
+}
+
+button {
+	height: 40px;
+	font-size: 1.2rem;
+	margin: 15px;;
+}
