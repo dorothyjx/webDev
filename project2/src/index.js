@@ -1,16 +1,45 @@
-import { fetchSession, fetchLogin, fetchHistory, fetchNewMessage, fetchLogout } from "./fetch";
+import { fetchSession, fetchLogin, fetchHistory, fetchNewMessage, fetchLogout, fetchAllUsers } from "./fetch";
 import state from "./state.js";
 import { submitHandler, webRender } from "./web";
 
 submitHandler();
 
-fetchSession()
-.then(fetchHistory)
-.then((chatHistory) => {
-	state.messages = chatHistory;
-	state.isLoggedIn = true;
-	webRender();
-})
-.catch(() => {
-	webRender();
-});
+setTimeout(() => {
+	fetchSession()
+	.then(fetchHistory)
+	.then((chatHistory) => {
+		state.messages = chatHistory;
+		state.isLoggedIn = true;
+		fetchAllUsers()
+			.then((user_list) => {
+				state.availableUsers = user_list; 
+				webRender();
+				initPolling();
+			})
+			.catch((error) => {
+				state.errMsg = "network wrong"
+				//webRender();
+				initPolling();
+			})
+	})
+	.catch(() => {
+		webRender();
+		initPolling();
+	});
+}, 1000);
+
+function initPolling() {
+	setInterval(() => {
+		return fetchSession()
+		.then(fetchHistory)
+		.then((chatHistory) => {
+			state.messages = chatHistory;
+			state.isLoggedIn = true;
+			fetchAllUsers()
+				.then((user_list) => {
+					state.availableUsers = user_list; 
+					webRender();
+				})
+			})
+	}, 3000);
+}

@@ -3,6 +3,7 @@ const state = {
     isLoggedIn: false,
     messages: {},
     errMsg: '',
+    availableUsers: {},
 };
 
 export default state;

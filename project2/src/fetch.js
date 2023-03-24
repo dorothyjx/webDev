@@ -72,3 +72,19 @@ export function fetchNewMessage(text) {
 		return res.json();
 	});
 }
+
+
+export function fetchAllUsers() {
+	console.log("81");
+	console.log(fetch('/api/sessionusers'));
+	return fetch('/api/sessionusers')
+	.catch(() => Promise.reject({ error: 'networkError' }))
+	.then( res => {
+		if(!res.ok) {
+			console.log("error");
+			return res.json().then( err => Promise.reject(err));
+		}
+		console.log(res);
+		return res.json();
+	});
+}
