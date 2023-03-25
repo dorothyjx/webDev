@@ -19,8 +19,6 @@ function deleteSession(sid) {
 }
 
 function getAllSessionUsers() {
-	console.log("gggg");
-	console.log(Object.values(sessions));
 	//return Object.keys(sessions).map((sid) => sessions[sid]?.username);
 	return Object.values(sessions);
 }

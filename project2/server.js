@@ -31,7 +31,7 @@ app.post('/api/session', (req, res) => {
 	const { username } = req.body;
   
 	if(!users.isValidUsername(username)) {
-	  console.log(username);
+
 	  res.status(400).json({ error: 'required-username' });
 	  return;
 	}
@@ -45,7 +45,6 @@ app.post('/api/session', (req, res) => {
 	res.cookie('sid', sid);
 
 	user_list[sid] = {username};
-	console.log("#48 in server.js, User_list: ", user_list);
 	//res.json({username: chatHistory, allusers});
 	res.json(chatHistory);
 });
@@ -73,15 +72,7 @@ app.get('/api/sessionusers', (req, res) => {
 	res.status(401).json({ error: 'auth-missing' });
 	return;
 	}
-	console.log("#75 in SERVER.JS", sessions.getAllSessionUsers())
-	// const activeUsers = {};
-	// Object.values(sessions.getAllSessionUsers()).forEach( (user) => {
-	// 	console.log("78", user.username)
-	// 	activeUsers[user.username] = true;
-	// })
-	// console.log("#80 in server.js", Object.keys(activeUsers))
-	// res.json({ users: Object.keys(activeUsers)});
-	console.log("84 in serverjs", user_list);
+
 	res.json(user_list);
 	//res.json(sessions.getAllSessionUsers);
 });
@@ -115,41 +106,5 @@ app.post('/api/chat', (req, res) => {
 
 	res.json(chatHistory);
 });
-
-// app.get('/api/user', (req, res) => {
-// 	const sid = req.cookies.sid;
-// 	const username = sid ? sessions.getSessionUser(sid) : '';
-// 	for (const [key, value] of users) {
-// 		if (value == username) {
-// 		  res.json((key, value));
-// 		}
-// 	}
-
-// });
-
-// app.post('api/user', (req, res) => {
-// 	const sid = req.cookies.sid;
-// 	const username = sid ? sessions.getSessionUser(sid) : '';
-//     users[uuid()] = username;
-// });
-
-// app.delete('api/user', (req, res) => {
-// 	const sid = req.cookies.sid;
-// 	const username = sid ? sessions.getSessionUser(sid) : '';
-
-// 	for (const [key, value] of users) {
-// 		if (value == username) {
-// 			users.delete(key);
-// 		}
-// 	}
-// })
-
-// app.get('api/allusers', (req, res) => {
-// 	const sid = req.cookies.sid;
-// 	const username = sid ? sessions.getSessionUser(sid) : '';
-
-// 	console.log(users);
-// 	res.json(users);
-// })
 
 app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));

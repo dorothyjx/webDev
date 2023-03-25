@@ -75,8 +75,6 @@ export function fetchNewMessage(text) {
 
 
 export function fetchAllUsers() {
-	console.log("81");
-	console.log(fetch('/api/sessionusers'));
 	return fetch('/api/sessionusers')
 	.catch(() => Promise.reject({ error: 'networkError' }))
 	.then( res => {

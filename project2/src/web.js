@@ -1,10 +1,10 @@
-import { fetchHistory, fetchNewMessage, fetchLogin, fetchLogout, fetchAllUsers } from "./fetch";
+import { fetchHistory, fetchNewMessage, fetchLogin, fetchLogout, fetchAllUsers, fetchSession } from "./fetch";
 import state from "./state";
-
+const app = document.querySelector("#app");
 //const availableUsers = [];
 
 export function submitHandler() {
-	const app = document.querySelector("#app");
+	//const app = document.querySelector("#app");
 	app.addEventListener("submit", e => {
 		e.preventDefault();
 		if(e.target.classList.contains("login")) {
@@ -33,7 +33,7 @@ export const webRender = () => {
 }
 
 export function loginWeb() {
-	const app = document.querySelector("#app");
+	//const app = document.querySelector("#app");
 	app.innerHTML = `
 		<div class="login-card">
 			<form class="login">
@@ -47,13 +47,14 @@ export function loginWeb() {
 }
 
 export function chatWeb() {
-	const app = document.querySelector("#app");
+	//const app = document.querySelector("#app");
 	app.innerHTML = `
 		<div class="msg-card">
-			${userList()}
-			<div></div>
+
+			<div class="online-users"></div>
+			<div class="list-container"></div>
+
 			<form class="send-msg">
-				${msgWeb()}
 				<input type="text" placeholder="Type message" class="new_message" />
 				<button type="submit">Send</button>
 			</form>
@@ -67,36 +68,34 @@ export function chatWeb() {
 	`
 }
 
+
 export function msgWeb() {
-	const app = document.querySelector("#app");
+	const msgList = app.querySelector(".list-container");
 	if(state.messages) {
-		return app.innerHTML = `
-			<div class="list-container">
+		return msgList.innerHTML = `
 			<ul class="msg-list">` + 
 			Object.values(state.messages).map(msg => `
 				<li>
 					<span>${msg.username} : ${msg.text}</span>
 				</li>
 			`).join('') + 
-			`</ul> </div>`
+			`</ul>`
 	} else {
 		return ``
 	}
 }
 
 function userList() {
-	const app = document.querySelector("#app");
-	if(state.availableUsers.length < 2) {
-		return `<p> Only You Online </p>`
-	} else {
-		return app.innerHTML = `<ul class="users"> Online Users: ` + 
-			Object.values(state.availableUsers).map(user => `
-				<li>
-					<span> ${user.username} </span>
-				</li>
-			`).join('') + 
-		`</ul>`
-	}
+	//const app = document.querySelector("#app");
+	const users = app.querySelector(".online-users");
+
+	return users.innerHTML = `<ul class="users"> Online Users: ` + 
+		Object.values(state.availableUsers).map(user => `
+			<li>
+				<span> ${user.username} </span>
+			</li>
+		`).join('') + 
+	`</ul>`
 }
 
 const userLogin = () => {
@@ -145,19 +144,57 @@ const sendNewMsg = () => {
 		state.isLoggedIn = true;
 		state.messages = chatHistory;
 		state.errMsg = "";
-		//webRender();
-		fetchAllUsers()
-		.then((user_list) => {
-			state.availableUsers = user_list;
-			webRender();
-		})
-		.catch((error) => {
-			state.errMsg = "network wrong"
-			webRender();
-		})
+		msgWeb();
 	})
 	.catch((error) => {
 		state.errMsg = "Invalid Message";
 		webRender();
 	})
 }
+
+
+export function initPolling() {
+	setInterval(() => {
+		return fetchHistory()
+		.then((chatHistory) => {
+			state.messages = chatHistory;
+			state.isLoggedIn = true;
+			fetchAllUsers()
+				.then((user_list) => {
+					state.availableUsers = user_list; 
+					msgWeb();
+					userList();
+					//webRender();
+				})
+			})
+		.catch(() => console.warn("should have an error in polling #179"))
+	}, 5000);
+}
+
+// function startPolling() {
+// 	return new Promise((resolve, reject) => {
+// 	  const intervalId = setInterval(() => {
+// 		fetchHistory()
+// 		  .then((chatHistory) => {
+// 			state.messages = chatHistory;
+// 			state.isLoggedIn = true;
+// 			fetchAllUsers()
+// 			  .then((user_list) => {
+// 				state.availableUsers = user_list;
+// 				msgWeb();
+// 				userList();
+// 				//webRender();
+// 				resolve(); // resolve the promise when updates are complete
+// 			  })
+// 			  .catch((error) => {
+// 				console.warn("Error fetching user list", error);
+// 				reject(error);
+// 			  });
+// 		  })
+// 		  .catch((error) => {
+// 			console.warn("Error fetching chat history", error);
+// 			reject(error);
+// 		  });
+// 	  }, 5000);
+// 	});
+//   }

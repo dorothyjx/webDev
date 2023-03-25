@@ -109,8 +109,6 @@ function fetchNewMessage(text) {
   });
 }
 function fetchAllUsers() {
-  console.log("81");
-  console.log(fetch('/api/sessionusers'));
   return fetch('/api/sessionusers')["catch"](function () {
     return Promise.reject({
       error: 'networkError'
@@ -159,6 +157,7 @@ var state = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "chatWeb": () => (/* binding */ chatWeb),
+/* harmony export */   "initPolling": () => (/* binding */ initPolling),
 /* harmony export */   "loginWeb": () => (/* binding */ loginWeb),
 /* harmony export */   "msgWeb": () => (/* binding */ msgWeb),
 /* harmony export */   "submitHandler": () => (/* binding */ submitHandler),
@@ -168,11 +167,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./state */ "./src/state.js");
 
 
-
+var app = document.querySelector("#app");
 //const availableUsers = [];
 
 function submitHandler() {
-  var app = document.querySelector("#app");
+  //const app = document.querySelector("#app");
   app.addEventListener("submit", function (e) {
     e.preventDefault();
     if (e.target.classList.contains("login")) {
@@ -197,32 +196,29 @@ var webRender = function webRender() {
   chatWeb();
 };
 function loginWeb() {
-  var app = document.querySelector("#app");
+  //const app = document.querySelector("#app");
   app.innerHTML = "\n\t\t<div class=\"login-card\">\n\t\t\t<form class=\"login\">\n\t\t\t\t<label>Type Your Username</label>\n\t\t\t\t<input type=\"text\" name=\"username\" placeholder=\"Username\" class=\"username\"/>\n\t\t\t\t<button type=\"submit\">Login</button>\n\t\t\t</form>\n\t\t\t<p class=\"error\">".concat(_state__WEBPACK_IMPORTED_MODULE_1__["default"].errMsg, "</p>\n\t\t</div>\n\t");
 }
 function chatWeb() {
-  var app = document.querySelector("#app");
-  app.innerHTML = "\n\t\t<div class=\"msg-card\">\n\t\t\t".concat(userList(), "\n\t\t\t<div></div>\n\t\t\t<form class=\"send-msg\">\n\t\t\t\t").concat(msgWeb(), "\n\t\t\t\t<input type=\"text\" placeholder=\"Type message\" class=\"new_message\" />\n\t\t\t\t<button type=\"submit\">Send</button>\n\t\t\t</form>\n\n\t\t\t<p>").concat(_state__WEBPACK_IMPORTED_MODULE_1__["default"].errMsg, "</p>\n\n\t\t\t<form class=\"logout\">\n\t\t\t\t<button type=\"submit\">Logout</button>\n\t\t\t</form>\n\t\t</div>\n\t");
+  //const app = document.querySelector("#app");
+  app.innerHTML = "\n\t\t<div class=\"msg-card\">\n\n\t\t\t<div class=\"online-users\"></div>\n\t\t\t<div class=\"list-container\"></div>\n\n\t\t\t<form class=\"send-msg\">\n\t\t\t\t<input type=\"text\" placeholder=\"Type message\" class=\"new_message\" />\n\t\t\t\t<button type=\"submit\">Send</button>\n\t\t\t</form>\n\n\t\t\t<p>".concat(_state__WEBPACK_IMPORTED_MODULE_1__["default"].errMsg, "</p>\n\n\t\t\t<form class=\"logout\">\n\t\t\t\t<button type=\"submit\">Logout</button>\n\t\t\t</form>\n\t\t</div>\n\t");
 }
 function msgWeb() {
-  var app = document.querySelector("#app");
+  var msgList = app.querySelector(".list-container");
   if (_state__WEBPACK_IMPORTED_MODULE_1__["default"].messages) {
-    return app.innerHTML = "\n\t\t\t<div class=\"list-container\">\n\t\t\t<ul class=\"msg-list\">" + Object.values(_state__WEBPACK_IMPORTED_MODULE_1__["default"].messages).map(function (msg) {
+    return msgList.innerHTML = "\n\t\t\t<ul class=\"msg-list\">" + Object.values(_state__WEBPACK_IMPORTED_MODULE_1__["default"].messages).map(function (msg) {
       return "\n\t\t\t\t<li>\n\t\t\t\t\t<span>".concat(msg.username, " : ").concat(msg.text, "</span>\n\t\t\t\t</li>\n\t\t\t");
-    }).join('') + "</ul> </div>";
+    }).join('') + "</ul>";
   } else {
     return "";
   }
 }
 function userList() {
-  var app = document.querySelector("#app");
-  if (_state__WEBPACK_IMPORTED_MODULE_1__["default"].availableUsers.length < 2) {
-    return "<p> Only You Online </p>";
-  } else {
-    return app.innerHTML = "<ul class=\"users\"> Online Users: " + Object.values(_state__WEBPACK_IMPORTED_MODULE_1__["default"].availableUsers).map(function (user) {
-      return "\n\t\t\t\t<li>\n\t\t\t\t\t<span> ".concat(user.username, " </span>\n\t\t\t\t</li>\n\t\t\t");
-    }).join('') + "</ul>";
-  }
+  //const app = document.querySelector("#app");
+  var users = app.querySelector(".online-users");
+  return users.innerHTML = "<ul class=\"users\"> Online Users: " + Object.values(_state__WEBPACK_IMPORTED_MODULE_1__["default"].availableUsers).map(function (user) {
+    return "\n\t\t\t<li>\n\t\t\t\t<span> ".concat(user.username, " </span>\n\t\t\t</li>\n\t\t");
+  }).join('') + "</ul>";
 }
 var userLogin = function userLogin() {
   var username = document.querySelector(".username").value;
@@ -261,19 +257,56 @@ var sendNewMsg = function sendNewMsg() {
     _state__WEBPACK_IMPORTED_MODULE_1__["default"].isLoggedIn = true;
     _state__WEBPACK_IMPORTED_MODULE_1__["default"].messages = chatHistory;
     _state__WEBPACK_IMPORTED_MODULE_1__["default"].errMsg = "";
-    //webRender();
-    (0,_fetch__WEBPACK_IMPORTED_MODULE_0__.fetchAllUsers)().then(function (user_list) {
-      _state__WEBPACK_IMPORTED_MODULE_1__["default"].availableUsers = user_list;
-      webRender();
-    })["catch"](function (error) {
-      _state__WEBPACK_IMPORTED_MODULE_1__["default"].errMsg = "network wrong";
-      webRender();
-    });
+    msgWeb();
   })["catch"](function (error) {
     _state__WEBPACK_IMPORTED_MODULE_1__["default"].errMsg = "Invalid Message";
     webRender();
   });
 };
+function initPolling() {
+  setInterval(function () {
+    return (0,_fetch__WEBPACK_IMPORTED_MODULE_0__.fetchHistory)().then(function (chatHistory) {
+      _state__WEBPACK_IMPORTED_MODULE_1__["default"].messages = chatHistory;
+      _state__WEBPACK_IMPORTED_MODULE_1__["default"].isLoggedIn = true;
+      (0,_fetch__WEBPACK_IMPORTED_MODULE_0__.fetchAllUsers)().then(function (user_list) {
+        _state__WEBPACK_IMPORTED_MODULE_1__["default"].availableUsers = user_list;
+        msgWeb();
+        userList();
+        //webRender();
+      });
+    })["catch"](function () {
+      return console.warn("should have an error in polling #179");
+    });
+  }, 5000);
+}
+
+// function startPolling() {
+// 	return new Promise((resolve, reject) => {
+// 	  const intervalId = setInterval(() => {
+// 		fetchHistory()
+// 		  .then((chatHistory) => {
+// 			state.messages = chatHistory;
+// 			state.isLoggedIn = true;
+// 			fetchAllUsers()
+// 			  .then((user_list) => {
+// 				state.availableUsers = user_list;
+// 				msgWeb();
+// 				userList();
+// 				//webRender();
+// 				resolve(); // resolve the promise when updates are complete
+// 			  })
+// 			  .catch((error) => {
+// 				console.warn("Error fetching user list", error);
+// 				reject(error);
+// 			  });
+// 		  })
+// 		  .catch((error) => {
+// 			console.warn("Error fetching chat history", error);
+// 			reject(error);
+// 		  });
+// 	  }, 5000);
+// 	});
+//   }
 
 /***/ })
 
@@ -354,29 +387,37 @@ setTimeout(function () {
     (0,_fetch__WEBPACK_IMPORTED_MODULE_0__.fetchAllUsers)().then(function (user_list) {
       _state_js__WEBPACK_IMPORTED_MODULE_1__["default"].availableUsers = user_list;
       (0,_web__WEBPACK_IMPORTED_MODULE_2__.webRender)();
-      initPolling();
+      (0,_web__WEBPACK_IMPORTED_MODULE_2__.initPolling)();
+      // startPolling();
     })["catch"](function (error) {
       _state_js__WEBPACK_IMPORTED_MODULE_1__["default"].errMsg = "network wrong";
       //webRender();
-      initPolling();
+      (0,_web__WEBPACK_IMPORTED_MODULE_2__.initPolling)();
+      // startPolling();
     });
   })["catch"](function () {
     (0,_web__WEBPACK_IMPORTED_MODULE_2__.webRender)();
-    initPolling();
+    (0,_web__WEBPACK_IMPORTED_MODULE_2__.initPolling)();
+    // startPolling();
   });
-}, 1000);
-function initPolling() {
-  setInterval(function () {
-    return (0,_fetch__WEBPACK_IMPORTED_MODULE_0__.fetchSession)().then(_fetch__WEBPACK_IMPORTED_MODULE_0__.fetchHistory).then(function (chatHistory) {
-      _state_js__WEBPACK_IMPORTED_MODULE_1__["default"].messages = chatHistory;
-      _state_js__WEBPACK_IMPORTED_MODULE_1__["default"].isLoggedIn = true;
-      (0,_fetch__WEBPACK_IMPORTED_MODULE_0__.fetchAllUsers)().then(function (user_list) {
-        _state_js__WEBPACK_IMPORTED_MODULE_1__["default"].availableUsers = user_list;
-        (0,_web__WEBPACK_IMPORTED_MODULE_2__.webRender)();
-      });
-    });
-  }, 3000);
-}
+}, 500);
+
+// function initPolling() {
+// 	setInterval(() => {
+// 		return fetchSession()
+// 		.then(fetchHistory)
+// 		.then((chatHistory) => {
+// 			state.messages = chatHistory;
+// 			state.isLoggedIn = true;
+// 			fetchAllUsers()
+// 				.then((user_list) => {
+// 					state.availableUsers = user_list; 
+// 					msgWeb();
+// 					//webRender();
+// 				})
+// 			})
+// 	}, 3000);
+// }
 })();
 
 /******/ })()
