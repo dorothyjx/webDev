@@ -1,0 +1,108 @@
+body {
+	background-color: pink;
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	height: 100vh;
+	align-items: center;
+}
+
+.login-card {
+	width: 60vw;
+	height: 80vh;
+	border:1px solid white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 45px;
+}
+
+.login {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 2%;
+}
+
+label {
+	font-size: 1.5rem;
+	margin: 10%;
+	text-align: center;
+}
+
+.login > input {
+	height: 40px;
+	margin: 15px;
+}
+
+button {
+	height: 40px;
+	font-size: 1.2rem;
+	margin: 15px;;
+}
+
+span {
+	font-size: 1.2rem;
+	margin-top: 5%;
+}
+
+.logout {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 3.5rem;
+}
+
+p {
+	color: darkred;
+}
+
+.msg-card {
+	width: 60vw;
+	height: 90vh;
+	border:1px solid white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 45px;
+}
+
+.send-msg {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 5%;
+}
+
+.send-msg > input {
+	height: 70px;
+	margin: 15px;
+	font-size: 1rem;
+}
+
+.send-msg > button {
+	height: 70px;
+}
+
+.list-container {
+	width: 100%;
+	height: 350px;
+	display: flex;
+	overflow: auto;
+	flex-direction: column-reverse;
+	border:1px solid yellow;
+	background-color: lightgray;
+}
+
+.msg-list {
+    position: relative;
+	bottom: 0;
+}
+
+.msg-list > li:last-child {
+	color: red;
+}
