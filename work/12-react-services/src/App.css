@@ -1,0 +1,83 @@
+.App {
+  background-color: pink;
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	height: 100vh;
+	align-items: center;
+}
+
+.login {
+  width: 60vw;
+	height: 80vh;
+	border:1px solid white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 45px;
+}
+
+.login__form {
+  width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 2%;
+}
+
+label {
+	font-size: 1.5rem;
+	margin: 10%;
+	text-align: center;
+}
+
+.login__form > input {
+	height: 40px;
+	margin: 15px;
+}
+
+button {
+	height: 40px;
+	font-size: 1.2rem;
+	margin: 15px;
+}
+
+span {
+	font-size: 1.2rem;
+	margin-top: 5%;
+}
+
+.content {
+  width: 60vw;
+	height: 60vh;
+	border:1px solid white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 45px;
+}
+
+.controls__logout {
+  height: 40px;
+	font-size: 1.2rem;
+	margin: 15px;
+}
+
+.status {
+  color: darkred;
+}
+
+.add__form {
+  width: 100%;
+  height: 40vh;
+  display: flex;
+	flex-direction: column;
+	align-items: center;
+  margin: 1%;
+}
+
+.add__form > input {
+  height: 40px;
+  width: 60%;
+	margin: 15px;
+}
