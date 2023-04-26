@@ -1,0 +1,185 @@
+body{
+  width: 100vw;
+	height: auto;
+  background-color: #2E86C1;
+}
+.App {
+  display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.login {
+  width: 60vw;
+	height: 80vh;
+	border:1px solid yellow;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 45px;
+}
+
+.login__form {
+  width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 2%;
+}
+
+label {
+  color: #F1C40F;
+	font-size: 1.5rem;
+	margin: 10%;
+	text-align: center;
+}
+
+.login__form > span {
+  color: #F1C40F;
+	font-size: 1.5rem;
+	margin: 10%;
+	text-align: center;
+	margin-top: 5%;
+}
+
+.login__username {
+	height: 40px;
+	margin: 15px;
+}
+
+.login__button {
+	height: 40px;
+	font-size: 1.2rem;
+	margin: 15px;
+}
+
+.login > h1{
+  color: #F1C40F;
+}
+
+.content {
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.header {
+  height: 10%;
+  background-color: #F1C40F;
+  color: black;
+  top: -10px;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header > p {
+  margin-top: 30px;
+  font-size: 1.3rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  width: 15vw;
+  justify-content: space-evenly;
+}
+
+.controls__refresh{
+  margin-top:30px;
+  height: 45px;
+  font-size: 1.1rem;
+  width: 80px;
+}
+
+.controls__logout{
+  margin-top:30px;
+  height: 45px;
+  font-size: 1.1rem;
+  width: 80px;
+}
+
+.posts {
+  width:80vw;
+  height: auto;
+  list-style: none;
+  border: 1px solid #F1C40F;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+
+
+.post-card {
+  margin: 15px;
+  width: 400px;
+  background-color: white;
+  border: 1px solid black;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.post {
+  padding: 5px;
+  margin: 10px;
+  height: 50%;
+  background-color: #F1C40F;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post > h4 {
+  font-size: 1.4rem;
+}
+
+.like{
+  margin:20px;
+  width: 65px;
+  height: 40px;
+  font-size: 1.1rem;
+}
+
+.new-post{
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom:40px;
+}
+
+.add-post{
+  height:40px;
+  width: 40vw;
+  font-size: 0.9rem;
+}
+
+.post-btn {
+  height: 45px;
+  width: 30%;
+  font-size: 1rem;
+  margin-left: 5px;
+}
+
+.comment {
+  font-size: 1.1rem;
+}
+
+.add-comment{
+  margin-left: 10px;
+  height:40px;
+  width: 62%;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+.comment-btn{
+  height: 45px;
+  width: 30%;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
